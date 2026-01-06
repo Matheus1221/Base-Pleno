@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  postgres:
+    image: bitnami/postgresql:latest
+    ports:
+      - "3000:3000" # ESTOU AQUI PEDINDO QUE ELE ENTRE NA PORTA 3000  QUANDO EU ACESSAR LOCALLHOST:3000
+    environment:
+      - POSTGRESQL_USERNAME=pleno
+      - POSTGRESQL_PASSWORD=pleno123
+      - POSTGRESQL_DATABASE=baseplenoDb
+    volumes:
+      - baseplenoDb_pg_data:/bitnami/postgresql
+
+  redis:
+    image: bitnami/redis:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - baseplenoDb_redis_data:/bitnami/redis/data
+
+volumes:
+  baseplenoDb_pg_data:
+    driver: local
+  baseplenoDb_redis_data:
+    driver: local
